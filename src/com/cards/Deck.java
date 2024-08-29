@@ -48,6 +48,10 @@ public class Deck {
         return (Card) cards.poll();
     }
 
+    public Card getCozur() {
+        return (Card) cards.peekLast();
+    }
+
     public int size() {
         return cards.size();
     }

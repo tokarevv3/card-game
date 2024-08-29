@@ -4,9 +4,11 @@ import java.util.HashMap;
 
 public class Game {
     private HashMap<Integer, Hand> players;
-    private int playerCount;
+    private final int playerCount;
     private int cardCount;
     private Deck deck;
+    private Card cozur;
+
 
     Game(HashMap<Integer, Hand> players, Deck deck) {
         this.deck = deck;
@@ -38,5 +40,9 @@ public class Game {
             // Игроки выбывают
         }
 
+    }
+
+    public void setCozur(Card cozur) {
+        this.cozur = cozur;
     }
 }

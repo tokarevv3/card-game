@@ -7,11 +7,14 @@ public class Table {
     private static String GAME_NAME;
 
     private static int CARD_COUNT;
+
     private boolean ADDITIONAL;
     private int gameCards;
     private boolean isAll;
     private HashMap<Integer, Hand> game;
     private Deck deck;
+
+    private final Card cozur;
 
 
     private int playerCount;
@@ -30,6 +33,7 @@ public class Table {
         CARD_COUNT = 36; // Default game cards count
         this.ADDITIONAL = false;
         this.isAll = false; //
+        cozur = deck.getCozur();
     }
 
     public Table additional(boolean ADDITIONAL) {
@@ -64,6 +68,19 @@ public class Table {
         }
     }
 
+    public void addPlayer(int count) {
+        if (count > PLAYER_COUNT) {
+            throw new IllegalArgumentException("Too much players cause of init.");
+        }
+        if (count > PLAYER_COUNT - playerCount) {
+            throw new IllegalArgumentException("Too much players cause of init.");
+        }
+        for (int i = 0; i < count; i++) {
+            game.put((playerCount + i), new Hand(playerCount + i));
+        }
+        playerCount+=count;
+    }
+
     public static int getCardCount() {
         return CARD_COUNT;
     }
@@ -75,6 +92,8 @@ public class Table {
     public void startGame() {
 
         Game game = new Game(this.game,deck);
-
+        game.getCards(this.game);
+        game.setCozur(cozur);
+        //game.run();
     }
 }
