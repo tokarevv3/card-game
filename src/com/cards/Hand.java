@@ -11,8 +11,8 @@ public class Hand {
         this.playerId = playerId;
     }
 
-    public void getHand() {
-
+    public void addCard(Card card) {
+        cards.add(card);
     }
 
     public void getBeat(Card card) {

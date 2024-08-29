@@ -44,6 +44,14 @@ public class Deck {
         cards = new ArrayDeque<>(list);
     }
 
+    public Card get() {
+        return (Card) cards.poll();
+    }
+
+    public int size() {
+        return cards.size();
+    }
+
     @Override
     public String toString() {
         return cards.toString();

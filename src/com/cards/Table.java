@@ -4,22 +4,30 @@ import java.util.HashMap;
 
 public class Table {
     private final int PLAYER_COUNT;
-    private final String GAME_NAME;
+    private static String GAME_NAME;
 
-    private int CARD_COUNT;
+    private static int CARD_COUNT;
     private boolean ADDITIONAL;
-    private int gameCards = CARD_COUNT;
+    private int gameCards;
     private boolean isAll;
+    private HashMap<Integer, Hand> game;
+    private Deck deck;
 
-    private HashMap<Hand, Integer> game;
 
-    Table(String GAME_NAME, int PLAYER_COUNT) {
+    private int playerCount;
+    {
+        gameCards = CARD_COUNT;
+    }
+
+
+    Table(String GAME_NAME, int PLAYER_COUNT, Deck deck) {
         if (PLAYER_COUNT < 2) {
             throw new IllegalArgumentException("Number of players must be 2 or more");
         }
-        this.GAME_NAME = GAME_NAME;
+        this.deck = deck;
+        Table.GAME_NAME = GAME_NAME;
         this.PLAYER_COUNT = PLAYER_COUNT;
-        this.CARD_COUNT = 36; // Default game cards count
+        CARD_COUNT = 36; // Default game cards count
         this.ADDITIONAL = false;
         this.isAll = false; //
     }
@@ -31,8 +39,8 @@ public class Table {
 
     public Table cardCount(int CARD_COUNT) {
         if (ADDITIONAL) {
-        this.CARD_COUNT = CARD_COUNT;
-        return this;
+            Table.CARD_COUNT = CARD_COUNT;
+            return this;
         } else {
             throw new IllegalStateException("Method cannot be called because additional is false.");
         }
@@ -47,7 +55,26 @@ public class Table {
         }
     }
 
+    public void addPlayer(Hand player) {
+        if (playerCount < PLAYER_COUNT) {
+            game.put(playerCount, player);
+            playerCount++;
+        } else {
+            throw new IllegalArgumentException("Too much players cause of init.");
+        }
+    }
+
+    public static int getCardCount() {
+        return CARD_COUNT;
+    }
+
+    public static String getGameName() {
+        return GAME_NAME;
+    }
+
     public void startGame() {
+
+        Game game = new Game(this.game,deck);
 
     }
 }

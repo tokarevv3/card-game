@@ -12,7 +12,7 @@ public class Main {
         System.out.println(first.isBeat(second));
         System.out.println(first.toString() + " " + second.toString());
 
-        Table table = new Table("Durak", 2)
+        Table table = new Table("Durak", 2, new Deck(true))
                 .additional(true)
                 .cardCount(32);
     }
